@@ -1,6 +1,6 @@
 {
-  "name": "turbo-repo",
-  "version": "0.0.0",
+  "name": "auth",
+  "version": "0.0.1",
   "private": true,
   "workspaces": [
     "apps/*",
