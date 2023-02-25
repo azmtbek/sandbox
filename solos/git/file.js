@@ -4,4 +4,3 @@ function loop(n) {
 }
 const n = loop(0);
 // commment 
-// commment 2
