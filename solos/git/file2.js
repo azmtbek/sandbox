@@ -1,3 +1,3 @@
-function newX() {
-  return 1
+function return2() {
+  return 2
 }
