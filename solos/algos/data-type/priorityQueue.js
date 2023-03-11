@@ -1,4 +1,1 @@
-
-class PriorityQueue {
-  
-}
+export class PriorityQueue {}
