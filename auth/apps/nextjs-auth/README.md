@@ -7,4 +7,4 @@ App has
 
 - [ ] basic view
 - [ ] auth
-- [X] crud
+- [ ] crud
