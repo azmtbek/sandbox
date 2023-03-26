@@ -5,7 +5,7 @@ import Header from "./Header";
 export default function Layout(props: PropsWithChildren) {
   const { children } = props;
   return (
-    <div className="bg-white text-black dark:bg-black dark:text-white ">
+    <div className="min-h-screen bg-white text-black dark:bg-black dark:text-white ">
       <Header />
       {children}
       <Footer />

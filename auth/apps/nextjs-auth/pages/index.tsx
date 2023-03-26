@@ -1,7 +1,6 @@
 import Head from "next/head";
 import { Button } from "ui";
 import Login from "../components/Login";
-import ThemeButton from "../components/ThemeButton";
 
 export default function Web() {
   return (
@@ -14,7 +13,6 @@ export default function Web() {
       <Login />
       <i className="fa-solid fa-dragon fa-4x"></i>
       <i className="fa-solid fa-user"></i>
-      <ThemeButton />
     </div>
   );
 }
