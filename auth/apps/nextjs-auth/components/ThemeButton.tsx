@@ -14,13 +14,17 @@ export default function ThemeButton() {
       <select
         value={theme || "os"}
         onChange={onChangeHandler}
-        className="px-4 py-2 border rounded-full w-24 text-black bg-white dark:text-white dark:bg-black"
+        className="px-4 py-1 text-lg border rounded-full w-18 
+         bg-emerald-700 text-white "
       >
         {options.map((val) => {
-          return <option key={val}>{val}</option>;
+          return (
+            <option key={val} value={val}>
+              {val}
+            </option>
+          );
         })}
       </select>
-      <p>{JSON.stringify(theme)}</p>
     </div>
   );
 }

@@ -11,8 +11,7 @@ export default function Web() {
       <h1 className="flex w-full text-4xl">Web</h1>
       <Button />
       <Login />
-      <i className="fa-solid fa-dragon fa-4x"></i>
-      <i className="fa-solid fa-user"></i>
+      
     </div>
   );
 }
