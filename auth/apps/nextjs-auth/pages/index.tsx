@@ -8,10 +8,7 @@ export default function Web() {
       <Head>
         <title>Web</title>
       </Head>
-      <h1 className="flex w-full text-4xl">Web</h1>
-      <Button />
       <Login />
-      
     </div>
   );
 }
