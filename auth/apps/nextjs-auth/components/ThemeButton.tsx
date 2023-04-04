@@ -15,7 +15,7 @@ export default function ThemeButton() {
         value={theme || "os"}
         onChange={onChangeHandler}
         className="px-4 py-1 text-lg border rounded-full w-18 
-         bg-emerald-700 text-white "
+          bg-emerald-700 text-white"
       >
         {options.map((val) => {
           return (

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 export const useTheme = () => {
   const [value, setValue] = useState<string | undefined>();
   const [isMount, setMount] = useState(false);
-  
+
   // get default theme if any
   useEffect(() => {
     if (!isMount) {
@@ -29,9 +29,7 @@ export const useTheme = () => {
 
     if (value === "dark" || isMediaMatch()) { root.classList.add("dark"); }
     else { root.classList.remove("dark"); }
-    return () => {
-    };
   }, [value]);
-  
+
   return [value, setValue] as const;
 };

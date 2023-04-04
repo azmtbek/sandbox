@@ -10,9 +10,9 @@ export default function Header() {
       </div>
       <div className="flex items-center gap-4 ">
         <ThemeButton />
-       <button className="border rounded-full w-10 p-1 transition duration-300 hover:opacity-40">
-        <i className=" fa-solid fa-user text-2xl "></i>
-     </button>
+        <button className="border rounded-full w-10 p-1 transition duration-300 hover:opacity-40">
+          <i className=" fa-solid fa-user text-2xl "></i>
+        </button>
       </div>
     </div>
   );

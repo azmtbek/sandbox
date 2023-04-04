@@ -5,7 +5,8 @@ import Header from "./Header";
 export default function Layout(props: PropsWithChildren) {
   const { children } = props;
   return (
-    <div className="flex flex-col min-h-screen bg-white text-black dark:bg-black dark:text-white ">
+    <div className="flex flex-col min-h-screen bg-white text-slate-800
+    dark:bg-slate-800 dark:text-white gap-3 ">
       <Header />
       <main className="flex-1">
         {children}
