@@ -24,6 +24,7 @@ export default function _documents() {
           crossOrigin="anonymous"
           referrerPolicy="no-referrer"
         />
+        <link rel="icon" href="logo.png" type="image/x-icon" />
       </Head>
       <body>
         <Main />
