@@ -8,7 +8,7 @@ export default function Web() {
   const user = useAuthContext();
   const router = useRouter();
   useEffect(() => {
-    if (user == null) router.push("/signin");
+    if (user == null) router.push("/auth");
     console.log(user);
   }, [user]);
   return (
@@ -16,7 +16,8 @@ export default function Web() {
       <Head>
         <title>Web</title>
       </Head>
-      <Login />
+      {/* <Login /> */}
+      <p>THis is the way</p>
     </div>
   );
 }

@@ -6,6 +6,7 @@ export default function _documents() {
   return (
     <Html>
       <Head>
+        <title>Auth CRUD</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
