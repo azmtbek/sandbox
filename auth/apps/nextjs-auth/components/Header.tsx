@@ -1,16 +1,34 @@
-import React from "react";
+import React, { PropsWithChildren, useEffect, useRef, useState } from "react";
 import ThemeButton from "./ThemeButton";
 import { useAuthContext } from "context/AuthContext";
 import signOut from "@/tools/auth/signout";
 import { useRouter } from "next/navigation";
 import tw from "utils/tailwind";
+import useOutsideClick from "@/hooks/useOutsideClick";
+
+// function ClickWrapper(props: PropsWithChildren) {
+//   return <div ref={wrapperRef}>{props.children}</div>;
+// }
 
 export default function Header() {
+  const [isShowUserInfo, setIsShowUserInfo] = useState(false);
   const user = useAuthContext();
   const router = useRouter();
+  const userInfo = () => {
+    setIsShowUserInfo((prev) => !prev);
+  };
   const handleSignOut = () => {
     signOut();
   };
+
+  const wrapperRef = useRef(null);
+  const isClickOutside = useOutsideClick(wrapperRef);
+
+  useEffect(() => {
+    console.log("click", isClickOutside);
+    if (isClickOutside) setIsShowUserInfo(false);
+  }, [isClickOutside]); 
+
   const handleSignIn = () => {
     router.push("/auth");
   };
@@ -21,10 +39,10 @@ export default function Header() {
         <h1 className="text-3xl">TODO LIST</h1>
         <p>{user && user.email}</p>
       </div>
-      <div className="flex items-center gap-4 ">
+      <div className="flex items-center gap-4 relative">
         <ThemeButton />
         <button
-          onClick={user ? handleSignOut : handleSignIn}
+          onClick={user ? userInfo : handleSignIn}
           className={tw(
             "rounded-full border border-white border-opacity-0 hover:border-opacity-100",
             "w-content px-2 py-1 transition duration-300",
@@ -40,6 +58,26 @@ export default function Header() {
               </span>
             )}
         </button>
+        {/* <ClickWrapper> */}
+        <div
+          ref={wrapperRef}
+          className={tw(
+            "flex flex-col items-start",
+            "absolute top-12 right-0 p-2 z-10 w-24  bg-slate-800",
+            "border rounded-lg",
+            isShowUserInfo ? "block" : "hidden",
+          )}
+        >
+          <span>info</span>
+
+          <button
+            className="duration-300 transition hover:underline"
+            onClick={handleSignOut}
+          >
+            sign out
+          </button>
+        </div>
+        {/* </ClickWrapper> */}
       </div>
     </div>
   );
