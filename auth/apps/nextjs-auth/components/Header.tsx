@@ -23,7 +23,6 @@ export default function Header() {
   };
 
   useEffect(() => {
-    console.log("click", isClickOutside);
     if (isClickOutside && isShowUserInfo) setIsShowUserInfo(false);
   }, [isClickOutside, isShowUserInfo]);
 
@@ -56,7 +55,6 @@ export default function Header() {
               </span>
             )}
         </button>
-        {/* <ClickWrapper> */}
         <div
           ref={wrapperRef}
           className={tw(
@@ -75,7 +73,6 @@ export default function Header() {
             sign out
           </button>
         </div>
-        {/* </ClickWrapper> */}
       </div>
     </div>
   );

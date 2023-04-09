@@ -1,14 +1,13 @@
-import { useEffect, Ref, useState } from "react";
+import { useEffect, Ref, useState, RefObject, SyntheticEvent } from "react";
 
-
-export default function useOutsideClick(ref: Ref<Event | null>) {
+export default function useOutsideClick(ref: RefObject<HTMLDivElement>) {
   const [isOutside, setIsOutside] = useState(false)
   useEffect(() => {
     function handleClickOutside(event: Event) {
-      if (ref?.current && !ref.current.contains(event.target)) {
+      if (ref?.current && !ref.current.contains(event.target as HTMLDivElement)) {
         setIsOutside(true)
       }
-      if (ref?.current && ref.current.contains(event.target)) {
+      if (ref?.current && ref.current.contains(event.target as HTMLDivElement)) {
         setIsOutside(false)
       }
     }

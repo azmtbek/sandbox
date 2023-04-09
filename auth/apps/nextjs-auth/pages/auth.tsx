@@ -6,7 +6,7 @@ import React, { FormEvent, useState } from "react";
 import tw from "utils/tailwind";
 
 export default function auth() {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [isError, setIsError] = useState(false);
@@ -41,8 +41,6 @@ export default function auth() {
         return setTextError("This email is already in use");
       }
     }
-
-    // else successful
     return router.push("/");
   };
 

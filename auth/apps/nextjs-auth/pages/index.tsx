@@ -9,7 +9,6 @@ export default function Web() {
   const router = useRouter();
   useEffect(() => {
     if (user == null) router.push("/auth");
-    console.log(user);
   }, [user]);
   return (
     <div>
