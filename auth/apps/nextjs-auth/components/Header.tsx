@@ -6,28 +6,26 @@ import { useRouter } from "next/navigation";
 import tw from "utils/tailwind";
 import useOutsideClick from "@/hooks/useOutsideClick";
 
-// function ClickWrapper(props: PropsWithChildren) {
-//   return <div ref={wrapperRef}>{props.children}</div>;
-// }
-
 export default function Header() {
   const [isShowUserInfo, setIsShowUserInfo] = useState(false);
   const user = useAuthContext();
   const router = useRouter();
+  const wrapperRef = useRef(null);
+  const [isClickOutside, setIsClickOutside] = useOutsideClick(wrapperRef);
+
   const userInfo = () => {
     setIsShowUserInfo((prev) => !prev);
+    setIsClickOutside((_) => false);
   };
   const handleSignOut = () => {
     signOut();
+    setIsShowUserInfo(false);
   };
-
-  const wrapperRef = useRef(null);
-  const isClickOutside = useOutsideClick(wrapperRef);
 
   useEffect(() => {
     console.log("click", isClickOutside);
-    if (isClickOutside) setIsShowUserInfo(false);
-  }, [isClickOutside]); 
+    if (isClickOutside && isShowUserInfo) setIsShowUserInfo(false);
+  }, [isClickOutside, isShowUserInfo]);
 
   const handleSignIn = () => {
     router.push("/auth");

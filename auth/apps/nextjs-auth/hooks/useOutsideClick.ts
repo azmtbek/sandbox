@@ -17,5 +17,5 @@ export default function useOutsideClick(ref: Ref<Event | null>) {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [ref]);
-  return isOutside
+  return [isOutside, setIsOutside] as const
 }
