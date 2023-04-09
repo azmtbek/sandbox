@@ -1,4 +1,3 @@
-import Login from "@/components/Login";
 import signIn from "@/tools/auth/signin";
 import signUp from "@/tools/auth/signup";
 import { useRouter } from "next/navigation";

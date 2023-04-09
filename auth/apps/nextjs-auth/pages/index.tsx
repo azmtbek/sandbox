@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Login from "../components/Login";
 import { useAuthContext } from "context/AuthContext";
 import { useRouter } from "next/router";
 import { useEffect } from "react";

@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ThemeButton from "./ThemeButton";
 import { useAuthContext } from "context/AuthContext";
 import signOut from "@/tools/auth/signout";

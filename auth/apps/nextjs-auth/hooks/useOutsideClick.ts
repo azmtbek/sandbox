@@ -1,4 +1,4 @@
-import { useEffect, Ref, useState, RefObject, SyntheticEvent } from "react";
+import { useEffect, useState, RefObject } from "react";
 
 export default function useOutsideClick(ref: RefObject<HTMLDivElement>) {
   const [isOutside, setIsOutside] = useState(false)
