@@ -1,7 +1,10 @@
+import Button from "@/components/Button";
+import Input from "@/components/Input";
 import signIn from "@/tools/auth/signin";
 import signUp from "@/tools/auth/signup";
+import { useAuthContext } from "context/AuthContext";
 import { useRouter } from "next/navigation";
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import tw from "utils/tailwind";
 
 export default function auth() {
@@ -42,7 +45,11 @@ export default function auth() {
     }
     return router.push("/");
   };
-
+  const user = useAuthContext();
+  useEffect(() => {
+    // console.log(window.history.state);
+    if (user) router.back();
+  }, [window]);
   return (
     <div className="min-h-full grid place-items-center">
       <form onSubmit={handleForm}>
@@ -59,7 +66,7 @@ export default function auth() {
           >
             {textError ? textError : "Please fill in the fields"}
           </p>
-          <input
+          <Input
             type="text"
             name="email"
             id="email"
@@ -67,14 +74,8 @@ export default function auth() {
             placeholder="Email address"
             onChange={(e) => setEmail(e.target.value)}
             required
-            className={tw(
-              "outline-none text-slate-800 w-full max-w-[55ch] p-2",
-              "border border-b-2 border-solid border-slate-500 focus:border-b-cyan-300",
-              "dark:text-white dark:bg-slate-800 hover:border-b-cyan-300 ",
-              "dark:hover:bg-slate-900 dark:focus:bg-slate-900 rounded-lg ",
-            )}
           />
-          <input
+          <Input
             type="password"
             name="password"
             id="password"
@@ -82,31 +83,12 @@ export default function auth() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className={tw(
-              "outline-none text-slate-800 w-full max-w-[55ch] p-2",
-              "border border-b-2 border-solid border-slate-500 focus:border-b-cyan-300",
-              "dark:text-white dark:bg-slate-800 hover:border-b-cyan-300 ",
-              "dark:hover:bg-slate-900 dark:focus:bg-slate-900 rounded-lg ",
-            )}
           />
-          <button
-            type="submit"
-            className={tw(
-              "w-full max-w-[55ch] text-center dark:bg-slate-800",
-              "border border-solid  border-slate-400 p-2 relative after:absolute",
-              "focus:bg-slate-900 duration-500 ease-in-out uppercase ",
-              "after:top-0 after:right-full dark:after:bg-white after:z-10 after:w-full",
-              "after:h-full overflow-hidden hover:after:translate-x-full after:duration-300",
-              "hover:text-white focus:outline-none rounded-lg",
-              "focus:after:translate-x-full text-slate-800 bg-white dark:text-white",
-              "dark:focus:text-slate-800 dark:hover:text-slate-800 after:bg-slate-800",
-              "focus:text-white",
-            )}
-          >
+          <Button type="submit">
             <h2 className="relative z-20 ">
               {isLogin ? "sign in" : "sign up"}
             </h2>
-          </button>
+          </Button>
 
           <div onClick={handleLoginChange}>
             Do you {isLogin ? "not" : ""} have an account?{" "}

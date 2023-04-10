@@ -5,6 +5,7 @@ import signOut from "@/tools/auth/signout";
 import { useRouter } from "next/navigation";
 import tw from "utils/tailwind";
 import useOutsideClick from "@/hooks/useOutsideClick";
+import Link from "next/link";
 
 export default function Header() {
   const [isShowUserInfo, setIsShowUserInfo] = useState(false);
@@ -20,6 +21,7 @@ export default function Header() {
   const handleSignOut = () => {
     signOut();
     setIsShowUserInfo(false);
+    router.push("/auth");
   };
 
   useEffect(() => {
@@ -33,7 +35,9 @@ export default function Header() {
     <div className="flex w-full justify-between px-10 py-2 bg-emerald-700 
       border-b border-white text-white">
       <div className="flex gap-3 items-center">
-        <h1 className="text-3xl">TODO LIST</h1>
+        <Link href={"/"}>
+          <h1 className="text-3xl">TODO LIST</h1>
+        </Link>
       </div>
       <div className="flex items-center gap-4 relative">
         <ThemeButton />
