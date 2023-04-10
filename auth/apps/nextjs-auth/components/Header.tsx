@@ -34,7 +34,6 @@ export default function Header() {
       border-b border-white text-white">
       <div className="flex gap-3 items-center">
         <h1 className="text-3xl">TODO LIST</h1>
-        <p>{user && user.email}</p>
       </div>
       <div className="flex items-center gap-4 relative">
         <ThemeButton />
@@ -59,12 +58,12 @@ export default function Header() {
           ref={wrapperRef}
           className={tw(
             "flex flex-col items-start",
-            "absolute top-12 right-0 p-2 z-10 w-24  bg-slate-800",
+            "absolute top-12 right-0 p-2 z-10 min-w-full  bg-slate-800",
             "border rounded-lg",
             isShowUserInfo ? "block" : "hidden",
           )}
         >
-          <span>info</span>
+          <span>{user && user.email}</span>
 
           <button
             className="duration-300 transition hover:underline"
