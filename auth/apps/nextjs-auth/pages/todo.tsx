@@ -2,11 +2,12 @@ import Button from "@/components/Button";
 import Input from "@/components/Input";
 import useIsAuth from "@/hooks/useIsAuth";
 import Head from "next/head";
-import React from "react";
+import React, { useState } from "react";
 
 export default function todo() {
   useIsAuth();
-  
+  const [todo, setTodo] = useState("");
+
   return (
     <>
       <Head>
@@ -17,8 +18,10 @@ export default function todo() {
         <div className="flex max-w-full ">
           <Input
             type="text"
-            name=""
-            id=""
+            name="todo"
+            id="todo"
+            value={todo}
+            onChange={(e) => setTodo(e.target.value)}
             placeholder="Add todo, e.g. do chores"
             className="rounded-r-sm w-[35ch]"
           />
@@ -27,7 +30,7 @@ export default function todo() {
           </Button>
         </div>
         <div className="flex flex-col gap-2 pt-5 items-start max-w-full">
-          <p>text</p>
+          <p>{todo}</p>
           <p>text</p>
         </div>
       </div>
