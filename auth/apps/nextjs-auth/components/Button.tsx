@@ -2,15 +2,16 @@ import React, { ButtonHTMLAttributes } from "react";
 import tw from "utils/tailwind";
 
 export default function Button(
-  { children, type = undefined, className }: ButtonHTMLAttributes<
+  props: ButtonHTMLAttributes<
     HTMLButtonElement
   >,
 ) {
+  const { children, className, ...allOther } = props;
   return (
     <button
-      type={type}
+      {...allOther}
       className={tw(
-        "w-full max-w-[55ch] text-center dark:bg-slate-800",
+        "w-full max-w-[55ch] text-center dark:bg-slate-800 cursor-pointer",
         "border border-solid  border-slate-400 p-2 relative after:absolute",
         "focus:bg-slate-900 duration-500 ease-in-out uppercase ",
         "after:top-0 after:right-full dark:after:bg-white after:z-10 after:w-full",
