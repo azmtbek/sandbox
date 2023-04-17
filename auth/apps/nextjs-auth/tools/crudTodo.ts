@@ -1,29 +1,57 @@
+import { getAuth } from "firebase/auth";
 import firebase_app from "./firebase";
-import { addDoc, collection, getDocs, getFirestore } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, getDocs, getFirestore, } from 'firebase/firestore'
 
 const db = getFirestore(firebase_app)
+const auth = getAuth(firebase_app)
 
-const todoCol = 'todos'
+const usersCol = 'users'
+const todosCol = 'todos'
 
-export async function addTodo(text: string) {
+export type TodoType = {
+  id: string,
+  orderId: number,
+  complited: boolean,
+  text: string,
+}
+
+
+export async function addTodo(todo: Omit<TodoType, 'id'>, userId: string) {
+  const todosRef = collection(db, usersCol, userId, todosCol)
+
   try {
-    const docRef = await addDoc(collection(db, todoCol), {
-      text
+    const docRef = await addDoc(todosRef, {
+      ...todo
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);
-
   }
 }
 
-export type TodoType = { id: string, data: { text: string } }
+export async function deleteTodo(todoId: string, userId: string) {
+  const todosRef = doc(db, usersCol, userId, todosCol, todoId)
+  try {
+    await deleteDoc(todosRef);
+  } catch (e) {
+    console.error("Error deleting document: ", e);
+  }
+}
 
-export async function getTodo() {
-  const querySnapshot = await getDocs(collection(db, todoCol));
+
+export async function getTodo(userId: string) {
+  const todosRef = collection(db, usersCol, userId, todosCol)
+
+  const querySnapshot = await getDocs(todosRef);
   let data: TodoType[] = []
   querySnapshot.forEach((doc) => {
-    data.push({ id: doc.id, data: { text:doc.data().text } });
+    data.push({
+      id: doc.id,
+      text: doc.data().text,
+      orderId: doc.data().orderId,
+      complited: doc.data().complited
+    });
   });
+  data.sort((a, b) => +a.orderId - +b.orderId)
   return data
 }
