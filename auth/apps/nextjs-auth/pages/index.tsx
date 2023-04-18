@@ -17,9 +17,9 @@ export default function Web() {
       </Head>
       <div className="min-h-full grid place-items-center">
         <p>THis is the way</p>
-        <ul>
+        <ul className="m-10">
           <li>
-            <Link className="hover:underline" href={"/todo"}>todo app</Link>
+            <Link className="hover:bg-slate-500 my-4 py-1 px-2 rounded-lg bg-slate-700 text-white" href={"/todo"}>todo app</Link>
           </li>
         </ul>
       </div>

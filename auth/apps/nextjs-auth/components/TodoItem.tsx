@@ -36,7 +36,7 @@ export default function TodoItem(props: TodoItemProps) {
       {isDeleteOn
         ? (
           <>
-            <div className="flex-1 text-lg px-1 border border-slate-800">
+            <div className="flex-1 text-lg px-1 border border-white dark:border-slate-800">
               <span>Please confirm.</span>
             </div>
             <button
@@ -94,7 +94,7 @@ export default function TodoItem(props: TodoItemProps) {
               onChange={() => {}}
             /> */
             }
-            <div className="flex-1 text-lg overflow-x-scroll border border-slate-800 px-1">
+            <div className="flex-1 text-lg overflow-x-scroll border border-white dark:border-slate-800 px-1">
               <span>{props.text}</span>
             </div>
             <button onClick={handleUpdate} className="w-6 p-1 group relative ">

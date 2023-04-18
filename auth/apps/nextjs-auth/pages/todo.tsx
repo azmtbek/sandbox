@@ -82,16 +82,26 @@ export default function todo() {
             onClick={handleAdd}
             className={tw(
               "rounded-l-none w-20",
-              todo == "" ? "bg-gray-500 dark:bg-gray-500" : "",
+              todo == "" ? "bg-gray-500 dark:bg-gray-500" : "dark:bg-slate-800",
             )}
             disabled={todo == ""}
           >
-            <h2 className="relative z-20 ">ADD</h2>
+            <h2
+              className={tw(
+                todo == "" ? "text-white" : "text-slate-800",
+                "relative z-20",
+                "group-hover:text-white group-focus:text-white",
+                "dark:text-white dark:group-focus:text-slate-800",
+                "dark:group-hover:text-slate-800 ",
+              )}
+            >
+              ADD
+            </h2>
           </Button>
         </div>
         <div className="flex flex-col gap-2 pt-5 items-center justify-center max-w-screen">
           <button
-            className="relative group w-10 text-lg border gap-2 border-slate-800 bg-slate-800 hover:bg-slate-700 p-1 rounded-2xl"
+            className="relative group w-10 text-lg border gap-2 border-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 p-1 rounded-2xl"
             onClick={refresh}
           >
             <i
@@ -108,7 +118,7 @@ export default function todo() {
             {!isFirstLoad
               ? (
                 <div className="grid w-full h-24 place-items-center">
-                  {/* <i className="fa-solid fa-spinner animate-spin"></i> */}
+                  <i className="fa-solid fa-spinner animate-spin"></i>
                 </div>
               )
               : todos?.map(

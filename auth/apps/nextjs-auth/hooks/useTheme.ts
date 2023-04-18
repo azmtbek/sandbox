@@ -16,7 +16,7 @@ export const useTheme = () => {
   // set theme
   useEffect(() => {
     if (isMount) {
-      if (value != 'os') localStorage.setItem('theme', JSON.stringify(value));
+      if (value && value != 'os') localStorage.setItem('theme', JSON.stringify(value));
       else localStorage.removeItem('theme')
     }
   }, [value]);

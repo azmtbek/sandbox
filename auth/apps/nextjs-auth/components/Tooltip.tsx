@@ -13,9 +13,9 @@ export default function Tooltip(props: TooltipProps) {
       <span
         className={tw(
           show ? "" : "group-hover:inline-block",
-          "absolute z-10 hidden opacity-90 duration-500",
+          "absolute z-10 hidden opacity-95 duration-500",
           "top-[120%] left-1/2 w-16 -ml-8 text-sm",
-          "rounded-lg p-1 bg-slate-600",
+          "rounded-lg p-1 bg-slate-200 dark:bg-slate-600",
         )}
       >
         {text}

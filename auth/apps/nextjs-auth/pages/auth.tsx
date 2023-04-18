@@ -74,6 +74,7 @@ export default function auth() {
             placeholder="Email address"
             onChange={(e) => setEmail(e.target.value)}
             required
+            className="w-[35ch]"
           />
           <Input
             type="password"
@@ -83,9 +84,10 @@ export default function auth() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
+            className="w-[35ch]"
           />
-          <Button type="submit">
-            <h2 className="relative z-20 ">
+          <Button type="submit" className="dark:bg-slate-800">
+            <h2 className="relative z-20 w-[35ch]">
               {isLogin ? "sign in" : "sign up"}
             </h2>
           </Button>
