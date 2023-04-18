@@ -1,6 +1,6 @@
 import { getAuth } from "firebase/auth";
 import firebase_app from "./firebase";
-import { addDoc, collection, deleteDoc, doc, getDocs, getFirestore, } from 'firebase/firestore'
+import { addDoc, collection, deleteDoc, doc, getDocs, getFirestore, updateDoc, } from 'firebase/firestore'
 
 const db = getFirestore(firebase_app)
 const auth = getAuth(firebase_app)
@@ -33,6 +33,18 @@ export async function deleteTodo(todoId: string, userId: string) {
   const todosRef = doc(db, usersCol, userId, todosCol, todoId)
   try {
     await deleteDoc(todosRef);
+  } catch (e) {
+    console.error("Error deleting document: ", e);
+  }
+}
+export type UpdateTodoType = {
+  complited?: boolean,
+  text?: string,
+}
+export async function updateTodo(todoId: string, userId: string, data: UpdateTodoType) {
+  const todosRef = doc(db, usersCol, userId, todosCol, todoId)
+  try {
+    await updateDoc(todosRef, {...data});
   } catch (e) {
     console.error("Error deleting document: ", e);
   }

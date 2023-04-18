@@ -1,8 +1,16 @@
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import TodoItem from "@/components/TodoItem";
+import Tooltip from "@/components/Tooltip";
 import useIsAuth from "@/hooks/useIsAuth";
-import { addTodo, deleteTodo, getTodo, TodoType } from "@/tools/crudTodo";
+import {
+  addTodo,
+  deleteTodo,
+  getTodo,
+  TodoType,
+  updateTodo,
+  UpdateTodoType,
+} from "@/tools/crudTodo";
 import { useAuthContext } from "context/AuthContext";
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
@@ -43,8 +51,10 @@ export default function todo() {
     setIsRefreshed(false);
   }, [isRefreshed]);
 
-  const handleUpdate = () => {
+  const handleUpdate = (todoId: string, data: UpdateTodoType) => {
     console.log("click handleUpdate");
+    updateTodo(todoId, user!.uid, data);
+    refresh();
   };
   const handleDelete = (todoId: string) => {
     console.log("click handleDelete");
@@ -58,7 +68,7 @@ export default function todo() {
       </Head>
       <div className="min-h-full grid place-items-center">
         <h1 className="text-4xl p-10">TODO APP</h1>
-        <div className="flex max-w-full ">
+        <div className="flex max-w-full w-80">
           <Input
             type="text"
             name="todo"
@@ -66,11 +76,14 @@ export default function todo() {
             value={todo}
             onChange={(e) => setTodo(e.target.value)}
             placeholder="Add todo, e.g. do chores"
-            className="rounded-r-sm w-60"
+            className="rounded-r-none  w-60"
           />
           <Button
             onClick={handleAdd}
-            className="rounded-l-sm w-20"
+            className={tw(
+              "rounded-l-none w-20",
+              todo == "" ? "bg-gray-500 dark:bg-gray-500" : "",
+            )}
             disabled={todo == ""}
           >
             <h2 className="relative z-20 ">ADD</h2>
@@ -78,28 +91,18 @@ export default function todo() {
         </div>
         <div className="flex flex-col gap-2 pt-5 items-center justify-center max-w-screen">
           <button
-            className="group w-10 text-lg border gap-2 border-slate-400 bg-slate-700 hover:bg-slate-600 p-1 rounded-2xl"
+            className="relative group w-10 text-lg border gap-2 border-slate-800 bg-slate-800 hover:bg-slate-700 p-1 rounded-2xl"
             onClick={refresh}
           >
-            {/* <span>Refresh</span>   */}
             <i
               className={tw(
-                "relative ",
+                "relative",
                 "fa-solid fa-arrows-rotate",
                 isLoading ? "animate-spin" : "",
               )}
             >
-              <span
-                className={tw(
-                  isLoading ? "" : "group-hover:inline-block",
-                  "absolute z-10 hidden",
-                  "top-[180%] left-1/2 w-16 -ml-8 text-sm",
-                  "rounded-lg p-1 bg-slate-600",
-                )}
-              >
-                Refresh
-              </span>
             </i>
+            <Tooltip show={isLoading} text="Refresh" />
           </button>
           <div className="w-80 flex flex-col justify-start items-start gap-2">
             {!isFirstLoad
