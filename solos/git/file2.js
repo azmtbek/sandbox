@@ -1,8 +1,8 @@
-function return2() {
+function fn2() {
   return 2;
 }
 function return3() {
   return 2;
 }
 
-export { return2, return3 };
+export { fn2, return3 };
