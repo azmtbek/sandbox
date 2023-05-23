@@ -28,7 +28,7 @@ This turborepo has some additional tools already setup for you:
 
 To build all apps and packages, run the following command:
 
-```
+```bash
 cd my-turborepo
 pnpm run build
 ```
@@ -37,7 +37,7 @@ pnpm run build
 
 To develop all apps and packages, run the following command:
 
-```
+```bash
 cd my-turborepo
 pnpm run dev
 ```
@@ -48,7 +48,7 @@ Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo
 
 By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup), then enter the following commands:
 
-```
+```bash
 cd my-turborepo
 pnpm dlx turbo login
 ```
@@ -57,7 +57,7 @@ This will authenticate the Turborepo CLI with your [Vercel account](https://verc
 
 Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your turborepo:
 
-```
+```bash
 pnpm dlx turbo link
 ```
 
