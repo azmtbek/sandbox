@@ -1,18 +1,20 @@
+// 2695. Array Wrapper
+
 class ArrayWrapper {
-  arr: number[]
+  arr: number[];
 
   constructor(nums: number[]) {
-    this.arr = nums
+    this.arr = nums;
   }
 
   valueOf() {
-    return this.arr.reduce((acc, a) => acc + a, 0)
+    return this.arr.reduce((acc, a) => acc + a, 0);
   }
 
   toString() {
-    return `[${this.arr.join(',')}]`
+    return `[${this.arr.join(",")}]`;
   }
-};
+}
 
 /**
  * const obj1 = new ArrayWrapper([1,2]);
