@@ -1,7 +1,7 @@
 // 2627. Debounce
 
 // @ts-ignore
-type F = (...p: any[]) => any;
+type F = (...p: unknown[]) => unknown;
 
 function debounce(fn: F, t: number): F {
   let timer: ReturnType<typeof setTimeout>;

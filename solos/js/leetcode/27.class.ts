@@ -1,6 +1,6 @@
 // 2694. Event Emitter
 
-type Callback = (...args: any[]) => any;
+type Callback = (...args: unknown[]) => unknown;
 type Subscription = {
   unsubscribe: () => void
 }
@@ -20,8 +20,8 @@ class EventEmitter {
     };
   }
 
-  emit(eventName: string, args: any[] = []): any {
-    let res: any = []
+  emit(eventName: string, args: unknown[] = []): unknown {
+    let res: unknown[] = []
     this.eventCallbacksMap.get(eventName)?.forEach((v: Callback, k: number) => {
       res.push(v(...args))
     })

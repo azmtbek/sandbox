@@ -1,6 +1,6 @@
 // 2623. Memoize
 // @ts-ignore
-type Fn = (...params: any) => any;
+type Fn = (...params: unknown[]) => unknown[];
 
 function memoize(fn: Fn): Fn {
   const memo = [];

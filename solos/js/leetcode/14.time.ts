@@ -1,7 +1,7 @@
 // 2622. Cache With Time Limit
 
 class TimeLimitedCache {
-  cache: Map<number, any>;
+  cache: Map<number, { val: number, timeout: number }>;
   constructor() {
     this.cache = new Map();
   }
@@ -17,7 +17,7 @@ class TimeLimitedCache {
   }
 
   get(key: number): number {
-    return this.cache.has(key) ? this.cache.get(key).val : -1;
+    return this.cache.has(key) ? this.cache.get(key)!.val : -1;
   }
 
   count(): number {

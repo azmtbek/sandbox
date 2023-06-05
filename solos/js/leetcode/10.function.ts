@@ -1,7 +1,7 @@
 // 2632. Curry
 
 function curry(fn: Function): Function {
-  const args: any[] = [];
+  const args: unknown[] = [];
   const len = fn.length;
   return function curried() {
     for (const a of arguments) {

@@ -1,6 +1,6 @@
 // 2666. Allow One Function Call
 
-function once<T extends (...args: any[]) => any>(
+function once<T extends (...args: unknown[]) => ReturnType<T> | undefined>(
   fn: T,
 ): (...args: Parameters<T>) => ReturnType<T> | undefined {
   let called = false;

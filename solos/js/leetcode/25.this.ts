@@ -1,6 +1,6 @@
 // 2618. Check if Object Instance of Class
 
-function checkIfInstanceOf(obj: any, classFunction: any): boolean {
+function checkIfInstanceOf(obj: unknown, classFunction: unknown): boolean {
   if (
     obj === null || obj === undefined ||
     typeof classFunction !== "function"

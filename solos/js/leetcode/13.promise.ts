@@ -1,8 +1,8 @@
 // 2636. Promise Pool
 // @ts-ignore
-type F = () => Promise<any>;
+type F = () => Promise<unknown>;
 
-function promisePool(functions: F[], n: number): Promise<any> {
+function promisePool(functions: F[], n: number): Promise<unknown> {
   const nextInLine = () => functions[n++]?.().then(nextInLine);
   const arr: F[] = [];
   for (let i = 0; i < n && i < functions.length; i++) {
