@@ -1,5 +1,6 @@
 // 2676. Throttle
 
+// @ts-ignore
 type F = (...args: any[]) => void;
 
 function throttle(fn: F, t: number): F {
@@ -19,6 +20,20 @@ function throttle(fn: F, t: number): F {
     } else currArgs = args;
   };
 }
+
+
+function throttle2(fn: F, t: number): F {
+  let timer: ReturnType<typeof setTimeout>;
+  let next = 0;
+  return function (...args) {
+    const delay = next - Date.now();
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      fn(...args);
+      next = Date.now() + t;
+    }, delay);
+  }
+};
 
 /**
  * const throttled = throttle(console.log, 100);
