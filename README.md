@@ -2,6 +2,6 @@
 
 ## Content
 
-- [auth](/auth/README.md)
+- [apps](/apps/README.md)
 - [ext](/ext/README)
 - [solo](/solos/README.md)
