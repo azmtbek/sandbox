@@ -1,3 +1,4 @@
+// deno-lint-ignore-file
 const kv = await Deno.openKv();
 
 export interface Link {
@@ -8,6 +9,5 @@ export async function getLink(slug: string,) {
   
   const res = await kv.get('link', slug)
   
-  res.
-  
+  return res
 }
