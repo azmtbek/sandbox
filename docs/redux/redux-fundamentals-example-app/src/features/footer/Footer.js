@@ -1,5 +1,5 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { availableColors, capitalize } from '../filters/colors'
 import { StatusFilters } from '../filters/filtersSlice'
@@ -83,14 +83,29 @@ const Footer = () => {
 
   const onColorChange = (color, changeType) =>
     console.log('Color change: ', { color, changeType })
-  const onStatusChange = (status) => console.log('Status change: ', status)
+
+  const onStatusChange = (status) => {
+    console.log(status)
+    dispatch({ type: 'filters/statusFilterChanged', payload: status })
+  }
+
+
+  const dispatch = useDispatch()
+
+  const handleAllCompleted = () => {
+    dispatch({ type: 'todos/allCompleted' })
+  }
+
+  const handleClearCompleted = () => {
+    dispatch({ type: 'todos/completedCleared' })
+  }
 
   return (
     <footer className="footer">
       <div className="actions">
         <h5>Actions</h5>
-        <button className="button">Mark All Completed</button>
-        <button className="button">Clear Completed</button>
+        <button className="button" onClick={handleAllCompleted}>Mark All Completed</button>
+        <button className="button" onClick={handleClearCompleted}>Clear Completed</button>
       </div>
 
       <RemainingTodos count={todosRemaining} />
