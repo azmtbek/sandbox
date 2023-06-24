@@ -2,6 +2,13 @@ import { client } from "../../api/client"
 
 const initialState = []
 
+export const todosLoaded = todos => {
+  return {
+    type: 'todos/todosLoaded',
+    payload: todos
+  }
+}
+
 export default function todosReducer(state = initialState, action) {
   switch (action.type) {
     case 'todos/todoAdded': {
