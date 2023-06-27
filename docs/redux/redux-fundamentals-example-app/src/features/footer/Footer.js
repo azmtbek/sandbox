@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { availableColors, capitalize } from '../filters/colors'
-import { StatusFilters } from '../filters/filtersSlice'
+import { StatusFilters, colorFilterChanged } from '../filters/filtersSlice'
 
 const RemainingTodos = ({ count }) => {
   const suffix = count === 1 ? '' : 's'
@@ -82,7 +82,7 @@ const Footer = () => {
   const { status, colors } = useSelector(state => state.filters)
 
   const onColorChange = (color, changeType) =>
-    console.log('Color change: ', { color, changeType })
+    dispatch(colorFilterChanged(color, changeType))
 
   const onStatusChange = (status) => {
     console.log(status)
