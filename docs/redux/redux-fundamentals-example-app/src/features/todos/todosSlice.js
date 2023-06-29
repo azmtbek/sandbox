@@ -1,5 +1,6 @@
 import { client } from "../../api/client"
 import { createSelector } from 'reselect'
+import { StatusFilters } from '../filters/filtersSlice'
 
 const initialState = []
 
@@ -74,10 +75,40 @@ export function saveNewTodo(text) {
   }
 }
 
+export const selectTodos = state => state.todos
+
+export const selectTodoById = (state, todoId) => {
+  return selectTodos(state).find(todo => todo.id === todoId)
+}
+
 export const selectTodoIds = createSelector(
-  // First, pass one or more "input selector" functions:
   state => state.todos,
-  // Then, an "output selector" that receives all the input results as arguments
-  // and returns a final result value
   todos => todos.map(todo => todo.id)
+)
+
+export const selectFilteredTodos = createSelector(
+  state => state.todos,
+  state => state.filters,
+  (todos, filters) => {
+
+    const { status, colors } = filters
+    const showAllCompletions = status === StatusFilters.All
+    if (showAllCompletions && colors.length === 0) {
+      return todos
+    }
+
+    const completedStatus = status === StatusFilters.Completed
+
+    return todos.filter(todo => {
+      const statusMatches =
+        showAllCompletions || todo.completed === completedStatus
+      const colorMatches = colors.length === 0 || colors.includes(todo.color)
+      return statusMatches && colorMatches
+    })
+  }
+)
+
+export const selectFilteredTodoIds = createSelector(
+  selectFilteredTodos,
+  filteredTodos => filteredTodos.map(todo => todo.id)
 )
