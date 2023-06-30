@@ -4,33 +4,32 @@ import { useSelector, useDispatch } from 'react-redux'
 import { ReactComponent as TimesSolid } from './times-solid.svg'
 
 import { availableColors, capitalize } from '../filters/colors'
-import { selectTodoById } from './todosSlice'
+import {
+  todoColorSelected,
+  todoDeleted,
+  todoToggled,
+  selectTodoById,
+} from './todosSlice'
 
-
+// Destructure `props.id`, since we just need the ID value
 const TodoListItem = ({ id }) => {
-  const todo = useSelector(state => selectTodoById(state, id))
+  // Call our `selectTodoById` with the state _and_ the ID value
+  const todo = useSelector((state) => selectTodoById(state, id))
   const { text, completed, color } = todo
 
   const dispatch = useDispatch()
 
   const handleCompletedChanged = () => {
-    dispatch({ type: 'todos/todoToggled', payload: todo.id })
+    dispatch(todoToggled(todo.id))
   }
 
   const handleColorChanged = (e) => {
     const color = e.target.value
-    if (color) {
-      dispatch({
-        type: 'todos/colorSelected',
-        payload: { todoId: todo.id, color, }
-      })
-    }
+    dispatch(todoColorSelected(todo.id, color))
   }
-  const handleDelete = () => {
-    dispatch({
-      type: 'todos/todoDeleted',
-      payload: todo.id,
-    })
+
+  const onDelete = () => {
+    dispatch(todoDeleted(todo.id))
   }
 
   const colorOptions = availableColors.map((c) => (
@@ -61,7 +60,7 @@ const TodoListItem = ({ id }) => {
             <option value=""></option>
             {colorOptions}
           </select>
-          <button className="destroy" onClick={handleDelete}>
+          <button className="destroy" onClick={onDelete}>
             <TimesSolid />
           </button>
         </div>
