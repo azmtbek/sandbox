@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect'
+import { createSelector } from "@reduxjs/toolkit"
 import { client } from '../../api/client'
 import { StatusFilters } from '../filters/filtersSlice'
 
@@ -130,7 +130,6 @@ export const todosLoaded = (todos) => ({
   payload: todos,
 })
 
-// Thunk function
 export const fetchTodos = () => async (dispatch) => {
   dispatch(todosLoading())
   const response = await client.get('/fakeApi/todos')
@@ -146,7 +145,6 @@ export function saveNewTodo(text) {
 }
 
 
-
 const selectTodoEntities = state => state.todos.entities
 
 export const selectTodos = createSelector(selectTodoEntities, entities =>
@@ -158,19 +156,13 @@ export const selectTodoById = (state, todoId) => {
 }
 
 export const selectTodoIds = createSelector(
-  // First, pass one or more "input selector" functions:
   selectTodos,
-  // Then, an "output selector" that receives all the input results as arguments
-  // and returns a final result value
   (todos) => todos.map((todo) => todo.id)
 )
 
 export const selectFilteredTodos = createSelector(
-  // First input selector: all todos
   selectTodos,
-  // Second input selector: all filter values
   (state) => state.filters,
-  // Output selector: receives both values
   (todos, filters) => {
     const { status, colors } = filters
     const showAllCompletions = status === StatusFilters.All
@@ -179,7 +171,6 @@ export const selectFilteredTodos = createSelector(
     }
 
     const completedStatus = status === StatusFilters.Completed
-    // Return either active or completed todos based on filter
     return todos.filter((todo) => {
       const statusMatches =
         showAllCompletions || todo.completed === completedStatus
@@ -190,8 +181,6 @@ export const selectFilteredTodos = createSelector(
 )
 
 export const selectFilteredTodoIds = createSelector(
-  // Pass our other memoized selector as an input
   selectFilteredTodos,
-  // And derive data in the output selector
   (filteredTodos) => filteredTodos.map((todo) => todo.id)
 )
