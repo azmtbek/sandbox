@@ -1,36 +1,51 @@
 import React, { ChangeEvent, useState } from "react";
-import { useAppDispatch } from "@/app/hooks";
-import { postAdded } from "./postsSlice";
-import { nanoid } from "@reduxjs/toolkit";
+import { useAppDispatch, useAppSelector } from "@/app/hooks";
+import { addNewPost } from "./postsSlice";
 
 export const AddPostForm = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [userId, setUserId] = useState("");
+  const [addRequestStatus, setAddRequestStatus] = useState("idle");
 
   const dispatch = useAppDispatch();
+
+  const users = useAppSelector((state) => state.users);
 
   const onTitleChanged = (e: ChangeEvent<HTMLInputElement>) =>
     setTitle(e.target.value);
   const onContentChanged = (e: ChangeEvent<HTMLTextAreaElement>) =>
     setContent(e.target.value);
 
-  const onSavePostClicked = () => {
-    if (title && content) {
-      dispatch(
-        postAdded({
-          id: nanoid(),
-          title,
-          content,
-        }),
-      );
+  const onAuthorChanged = (e: ChangeEvent<HTMLSelectElement>) =>
+    setUserId(e.target.value);
 
-      setTitle("");
-      setContent("");
+  const canSave = [title, content, userId].every(Boolean) &&
+    addRequestStatus === "idle";
+
+  const onSavePostClicked = async () => {
+    if (canSave) {
+      try {
+        setAddRequestStatus("pending");
+        await dispatch(addNewPost({ title, content, user: userId })).unwrap();
+        setTitle("");
+        setContent("");
+        setUserId("");
+      } catch (err) {
+        console.error("Failed to save the post: ", err);
+      } finally {
+        setAddRequestStatus("idle");
+      }
     }
   };
+  const usersOptions = users.map((user) => (
+    <option key={user.id} value={user.id}>
+      {user.name}
+    </option>
+  ));
 
   return (
-  <section>
+    <section>
       <h2>Add a New Post</h2>
       <form>
         <label htmlFor="postTitle">Post Title:</label>
@@ -38,9 +53,15 @@ export const AddPostForm = () => {
           type="text"
           id="postTitle"
           name="postTitle"
+          placeholder="What's on your mind?"
           value={title}
           onChange={onTitleChanged}
         />
+        <label htmlFor="postAuthor">Author:</label>
+        <select id="postAuthor" value={userId} onChange={onAuthorChanged}>
+          <option value=""></option>
+          {usersOptions}
+        </select>
         <label htmlFor="postContent">Content:</label>
         <textarea
           id="postContent"
@@ -48,7 +69,7 @@ export const AddPostForm = () => {
           value={content}
           onChange={onContentChanged}
         />
-        <button type="button" onClick={onSavePostClicked}>
+        <button type="button" onClick={onSavePostClicked} disabled={!canSave}>
           Save Post
         </button>
       </form>
