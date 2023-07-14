@@ -1,10 +1,11 @@
+// @ts-nocheck
 import { rest, setupWorker } from 'msw'
 import { factory, oneOf, manyOf, primaryKey } from '@mswjs/data'
 import { nanoid } from '@reduxjs/toolkit'
 import faker from 'faker'
 import seedrandom from 'seedrandom'
 import { Server as MockSocketServer } from 'mock-socket'
-import { sentence } from 'txtgen'
+// import { sentence } from 'txtgen'
 
 import { parseISO } from 'date-fns'
 
@@ -38,7 +39,7 @@ if (useSeededRNG) {
   }
 
   rng = seedrandom(randomSeedString)
-  sentence()
+  // sentence()
   faker.seed(seedDate.getTime())
 }
 

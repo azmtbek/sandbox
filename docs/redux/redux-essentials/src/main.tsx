@@ -5,18 +5,18 @@ import { store } from "./app/store";
 import App from "./App";
 import "./index.css";
 
-
-import { worker } from '@/api/server'
+import { worker } from "@/api/server";
 
 import { fetchUsers } from "./features/users/usersSlice";
 
 async function start() {
-
-  await worker.start({ onUnhandledRequest: 'bypass' })
+  await worker.start({ onUnhandledRequest: "bypass" });
 
   store.dispatch(fetchUsers());
+  const root = document.getElementById("root");
+  if (!root) return;
 
-  ReactDOM.createRoot(document.getElementById("root")!).render(
+  ReactDOM.createRoot(root).render(
     <React.StrictMode>
       <Provider store={store}>
         <App />

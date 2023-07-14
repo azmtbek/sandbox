@@ -1,4 +1,4 @@
-import { PayloadAction, createAsyncThunk, createSlice, nanoid } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { RootState } from '../../app/store'
 import { client } from '@/api/client'
 
@@ -66,7 +66,7 @@ const postsSlice = createSlice({
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.status = 'succeeded'
         // Add any fetched posts to the array
-        state.posts = state.posts.concat(action.payload)
+        state.posts = action.payload
       })
       .addCase(fetchPosts.rejected, (state, action) => {
         state.status = 'failed'
