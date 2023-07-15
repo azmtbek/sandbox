@@ -1,11 +1,12 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit'
 
 import { client } from '@/api/client'
+import { RootState } from '@/app/store'
 
 export const fetchNotifications = createAsyncThunk(
   'notifications/fetchNotifications',
   async (_, { getState }) => {
-    const allNotifications = selectAllNotifications(getState())
+    const allNotifications = selectAllNotifications(getState() as RootState)
     const [latestNotification] = allNotifications
     const latestTimestamp = latestNotification ? latestNotification.date : ''
     const response = await client.get(
@@ -19,31 +20,33 @@ export interface NotificationState {
   date: string,
   read: boolean,
   isNew: boolean,
-  
+
 }
 
-const initialState: NotificationState[] = []
+const notificationsAdapter = createEntityAdapter<NotificationState>({
+  sortComparer: (a, b) => b.date.localeCompare(a.date)
+})
 
 
 const notificationsSlice = createSlice({
   name: 'notifications',
-  initialState,
+  initialState: notificationsAdapter.getInitialState(),
   reducers: {
     allNotificationsRead(state) {
-      state.forEach(notification => {
+      Object.values(state.entities).forEach(notification => {
+        if (!notification) return
         notification.read = true
       })
     },
   },
   extraReducers(builder) {
     builder.addCase(fetchNotifications.fulfilled, (state, action) => {
-      state.push(...action.payload)
-      state.forEach(notification => {
+      notificationsAdapter.upsertMany(state, action.payload)
+      Object.values(state.entities).forEach(notification => {
         // Any notifications we've read are no longer new
+        if (!notification) return
         notification.isNew = !notification.read
       })
-      // Sort with newest first
-      state.sort((a, b) => b.date.localeCompare(a.date))
     })
   }
 })
@@ -53,4 +56,5 @@ export const { allNotificationsRead } = notificationsSlice.actions
 
 export default notificationsSlice.reducer
 
-export const selectAllNotifications = (state) => state.notifications
+export const { selectAll: selectAllNotifications } =
+  notificationsAdapter.getSelectors((state: RootState) => state.notifications)

@@ -1,18 +1,25 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { fetchPosts, selectAllPosts, SinglePost } from "./postsSlice";
+import {
+  fetchPosts,
+  selectPostById,
+  selectPostIds,
+} from "./postsSlice";
 import { Link } from "react-router-dom";
 import { PostAuthor } from "./PostAuthor";
 import { TimeAgo } from "./TimeAgo";
 import { ReactionButtons } from "./ReactionButtons";
 import { Spinner } from "@/components/Spinner";
 
-const PostExcerpt = ({ post }: { post: SinglePost }) => {
+const PostExcerpt = ({ postId }: { postId: number | string }) => {
+  const post = useAppSelector((state) => selectPostById(state, postId));
+  if (!post) return;
+
   return (
     <article className="post-excerpt">
       <h3>{post.title}</h3>
       <div>
-        <PostAuthor userId={post.user} />
+        <PostAuthor userId={post.user || ""} />
         <TimeAgo timestamp={post.date} />
       </div>
       <p className="post-content">{post.content.substring(0, 100)}</p>
@@ -26,10 +33,7 @@ const PostExcerpt = ({ post }: { post: SinglePost }) => {
 };
 
 export const PostsList = () => {
-  const posts = useAppSelector(selectAllPosts);
-  const orderedPosts = posts.slice().sort((a, b) =>
-    b.date.localeCompare(a.date)
-  );
+  const orderedPostIds = useAppSelector(selectPostIds);
 
   const dispatch = useAppDispatch();
 
@@ -47,13 +51,8 @@ export const PostsList = () => {
   if (postStatus === "loading") {
     content = <Spinner text="Loading..." />;
   } else if (postStatus === "succeeded") {
-    // Sort posts in reverse chronological order by datetime string
-    const orderedPosts = posts
-      .slice()
-      .sort((a, b) => b.date.localeCompare(a.date));
-
-    content = orderedPosts.map((post) => (
-      <PostExcerpt key={post.id} post={post} />
+    content = orderedPostIds.map((postId) => (
+      <PostExcerpt key={postId} postId={postId} />
     ));
   } else if (postStatus === "failed") {
     content = <div>Thus {error}</div>;
