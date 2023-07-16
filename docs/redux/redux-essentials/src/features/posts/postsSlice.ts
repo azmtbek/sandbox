@@ -16,12 +16,6 @@ export interface SinglePost {
   reactions: any,  // eslint-disable-line 
 }
 
-// const initialState: Post = {
-//   posts: [],
-//   status: 'idle',
-//   error: null
-// }
-
 const postsAdapter = createEntityAdapter<SinglePost>({
   sortComparer: (a, b) => b.date.localeCompare(a.date)
 })
