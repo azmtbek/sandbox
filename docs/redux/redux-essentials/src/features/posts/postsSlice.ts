@@ -2,12 +2,12 @@ import { createAsyncThunk, createEntityAdapter, createSelector, createSlice } fr
 import { RootState } from '../../app/store'
 import { client } from '@/api/client'
 
-export interface Post {
+export interface PostAdapter {
   status: string,
   error: null | string | undefined
 }
 
-export interface SinglePost {
+export interface Post {
   id: string,
   title: string,
   content: string,
@@ -16,11 +16,11 @@ export interface SinglePost {
   reactions: any,  // eslint-disable-line 
 }
 
-const postsAdapter = createEntityAdapter<SinglePost>({
+const postsAdapter = createEntityAdapter<Post>({
   sortComparer: (a, b) => b.date.localeCompare(a.date)
 })
 
-const initialState = postsAdapter.getInitialState<Post>({
+const initialState = postsAdapter.getInitialState<PostAdapter>({
   status: 'idle',
   error: null
 })
@@ -34,7 +34,7 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
 
 export const addNewPost = createAsyncThunk(
   'posts/addNewPost',
-  async (initialPost: Omit<SinglePost, "id" | "reactions" | "date">) => {
+  async (initialPost: Omit<Post, "id" | "reactions" | "date">) => {
     const response = await client.post('/fakeApi/posts', initialPost)
     return response.data
   }

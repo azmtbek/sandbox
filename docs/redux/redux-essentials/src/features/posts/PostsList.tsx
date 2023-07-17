@@ -7,9 +7,9 @@ import { ReactionButtons } from "./ReactionButtons";
 import { Spinner } from "@/components/Spinner";
 import { useGetPostsQuery } from "@/api/apiSlice";
 
-import type { SinglePost } from "./postsSlice";
+import type { Post } from "./postsSlice";
 
-const PostExcerpt = ({ post }: { post: SinglePost }) => {
+const PostExcerpt = ({ post }: { post: Post }) => {
   return (
     <article className="post-excerpt">
       <h3>{post.title}</h3>
