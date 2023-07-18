@@ -7,12 +7,12 @@ import "./index.css";
 
 import { worker } from "@/api/server";
 
-import { apiSlice } from "./api/apiSlice";
+import { usersEndpointSlice } from "./features/users/usersSlice";
 
 async function start() {
   await worker.start({ onUnhandledRequest: "bypass" });
 
-  store.dispatch(apiSlice.endpoints.getUsers.initiate());
+  store.dispatch(usersEndpointSlice.initiate());
 
   const root = document.getElementById("root");
   if (!root) return;

@@ -1,6 +1,6 @@
 import { Post } from "@/features/posts/postsSlice"
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import type { User } from "@/features/users/usersSlice"
+// import type { User } from "@/features/users/usersSlice"
 
 export const apiSlice = createApi({
   reducerPath: "api",
@@ -36,17 +36,12 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: (result, error, arg) => [{ type: 'Post', id: arg.id }]
     }),
-    getUsers: builder.query<User[], void>({
-      query: () => '/users',
-      providesTags: [{ type: 'User', id: "LIST" }]
-    })
   }),
 })
 
 export const {
   useGetPostsQuery,
   useGetPostQuery,
-  useGetUsersQuery,
   useAddNewPostMutation,
   useEditPostMutation,
 } = apiSlice
