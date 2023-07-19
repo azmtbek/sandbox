@@ -7,9 +7,7 @@ export const EditPostForm = () => {
   const { postId = "" } = useParams();
 
   const { data: post } = useGetPostQuery(postId);
-  const [updatePost,
-    // { isLoading }
-  ] = useEditPostMutation();
+  const [updatePost] = useEditPostMutation();
 
   const [title, setTitle] = useState(post?.title);
   const [content, setContent] = useState(post?.content);

@@ -67,7 +67,6 @@ const postsSlice = createSlice({
       })
       .addCase(fetchPosts.fulfilled, (state, action) => {
         state.status = 'succeeded'
-        // Use the `upsertMany` reducer as a mutating update utility
         postsAdapter.upsertMany(state, action.payload)
 
       })
@@ -76,7 +75,6 @@ const postsSlice = createSlice({
         console.log(JSON.stringify(state))
         state.error = action.error.message
       })
-      // Use the `addOne` reducer for the fulfilled case
       .addCase(addNewPost.fulfilled, postsAdapter.addOne)
   }
 })
@@ -86,12 +84,10 @@ export const { postUpdated, reactionAdded } = postsSlice.actions
 
 export default postsSlice.reducer
 
-// Export the customized selectors for this adapter using `getSelectors`
 export const {
   selectAll: selectAllPosts,
   selectById: selectPostById,
   selectIds: selectPostIds
-  // Pass in a selector that returns the posts slice of state
 } = postsAdapter.getSelectors((state: RootState) => state.posts)
 
 export const selectPostsByUser = createSelector(

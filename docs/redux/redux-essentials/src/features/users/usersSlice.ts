@@ -4,7 +4,6 @@ import {
   createAsyncThunk,
   createEntityAdapter,
   createSelector,
-  // createSlice
 } from '@reduxjs/toolkit'
 
 import type { RootState } from '@/app/store'
@@ -44,34 +43,6 @@ const selectUsersData = createSelector(
   selectUsersResult,
   usersResult => usersResult.data
 )
-
-// const emptyUsers = []
-
-// export const selectAllUsers = createSelector(
-//   selectUsersResult,
-//   usersResult => usersResult?.data ?? emptyUsers
-// )
-
-// export const selectUserById = createSelector(
-//   selectAllUsers,
-//   (state, userId) => userId,
-//   (users, userId) => (users as User[]).find(user => user.id === userId)
-// )
-
-
-
-// const usersSlice = createSlice({
-//   name: 'users',
-//   initialState,
-//   reducers: {},
-//   extraReducers(builder) {
-//     builder.addCase(fetchUsers.fulfilled, usersAdapter.setAll)
-//   }
-// })
-
-// export default usersSlice.reducer
-
-
 
 export const { selectAll: selectAllUsers, selectById: selectUserById } =
   usersAdapter.getSelectors<RootState>((state) => selectUsersData(state) ?? initialState)
