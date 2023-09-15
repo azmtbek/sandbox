@@ -1,4 +1,4 @@
-
+# TODO rewrite the code
 # import math
 import sys
 import random
@@ -69,5 +69,18 @@ def rps():
 
 
 if __name__ == '__main__':
-	print('Let\'s play Rock, Paper, Scissors')
-	rps()
+	import argparse
+
+	parser = argparse.ArgumentParser(
+		description='Provide personalized experience.'
+	)
+
+	parser.add_argument(
+		'-n','--name',metavar='name',
+		required=True, help='The name of the person playing the game.'
+	)
+
+	args =parser.parse_args()
+
+	my_rps = rps(args.name)
+	my_rps()
