@@ -26,7 +26,7 @@ def rps():
 	#Recall def if wrong number
 	if number<1 and number>3:
 		print('\n Wrong number')
-		guess_number()
+		# guess_number()
 	
 	guess = random.choice('123')
 	guess=int(guess)
