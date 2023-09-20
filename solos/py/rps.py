@@ -20,7 +20,6 @@ def rps(name="ReadyPlayerOne"):
         number = input("\n numbers: \n1. Rock \n2. Paper \n3. Scissors \n\n")
         number = int(number)
 
-        # Recall def if wrong number
         if number < 1 and number > 3:
             print("\n Wrong number")
             return play_rps()

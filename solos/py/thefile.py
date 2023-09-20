@@ -1,4 +1,3 @@
-hello = 'hellow world!'
-newsss = 'ss'
+hello = "hellow world!"
 
 print(hello)
