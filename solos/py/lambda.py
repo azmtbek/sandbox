@@ -3,6 +3,7 @@ from functools import reduce
 squared = lambda num: num * num
 
 addTwo = lambda num: num + 2
+divideBy3 = lambda num: num / 3
 
 
 names = ["John", "Doe", "Lambda"]
