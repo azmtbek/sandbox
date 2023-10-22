@@ -3,14 +3,14 @@
 
 int main(void)
 {
-  char c = get_char("Do you agreee?")
+  char c = get_char("Do you agreee?");
 
   if (c == 'y' || c == 'Y')
   {
-    printf("Agreed.\n")
+    printf("Agreed.\n");
   }
   else if (c == 'n' || c == 'N')
   {
-    printf("Not agreed.\n")
+    printf("Not agreed.\n");
   }
 }
