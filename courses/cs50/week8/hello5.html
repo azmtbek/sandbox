@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hello</title>
+</head>
+
+<body>
+
+  <input autocomplete="off" type="text" id="name">
+
+  <p id="text">Hello, whoever you are!</p>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+      let input = document.querySelector('#name');
+      input.addEventListener('keyup', function () {
+        let text = document.querySelector('#text');
+
+        if (input.value) {
+          text.innerHTML = `Hello, ${input.value}!`;
+        } else {
+          text.innerHTML = 'Hello, whoever you are!';
+        }
+      })
+
+    })
+  </script>
+</body>
+
+</html>
